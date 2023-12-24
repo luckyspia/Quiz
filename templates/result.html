@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>퀴즈 결과</title>
+    <style>
+        /* CSS 스타일 추가 */
+        .congrats-message {
+            font-size: 1.5em; /* 원하는 크기로 조정하세요 */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>객관식 퀴즈 결과</h2>
+    <p>당신의 객관식 퀴즈 점수는: {{ score_mc }} / 43입니다.</p>
+    <h3>객관식 퀴즈 틀린 문제와 정답</h3>
+    <ul>
+        {% for result in mc_wrong_answers %}
+            <li>
+                <strong>질문:</strong> {{ result['question'] }}<br>
+                <strong>정답:</strong> {{ result['answer'] }}<br>
+                {% if result['choices'] %}
+                    <strong>보기:</strong>
+                    <ul>
+                        {% for choice in result['choices'] %}
+                            <li>{{ choice }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+            <hr> <!-- 틀린 문제 사이에 구분선 추가 -->
+        {% endfor %}
+    </ul>
+    
+    <hr> <!-- 객관식 퀴즈와 주관식 퀴즈 사이에 구분선 추가 -->
+    
+    <h2>주관식 퀴즈 결과</h2>
+    <p>당신의 주관식 퀴즈 점수는: {{ score_open }} / 44입니다.</p>
+    <h3>주관식 퀴즈 틀린 문제와 정답</h3>
+    <ul>
+        {% for result in open_wrong_answers %}
+            <li>
+                <strong>질문:</strong> {{ result['question'] }}<br>
+                <strong>정답:</strong> {{ result['answer'] }}<br>
+            </li>
+            <hr> <!-- 틀린 문제 사이에 구분선 추가 -->
+        {% endfor %}
+    </ul>
+
+    <p class="congrats-message">{{ congrats_message }}</p> <!-- 스타일 적용 -->
+</body>
+</html>

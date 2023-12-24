@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>퀴즈 응시</title>
+</head>
+<body>
+    <h2>객관식 퀴즈</h2>
+    <form action="/result" method="POST">
+        {% for question in multiple_choice %}
+            <h3>{{ question['question'] }}</h3>
+            {% for choice in question['choices'] %}
+                <input type="radio" name="{{ question['question'] }}" value="{{ choice }}"> {{ choice }}<br>
+            {% endfor %}
+            <br>
+        {% endfor %}
+        <hr>
+        <h2>주관식 퀴즈</h2>
+        {% for question in open_ended %}
+            <h3>{{ question['question'] }}</h3>
+            <input type="text" name="{{ question['question'] }}"><br><br>
+        {% endfor %}
+        <input type="submit" value="제출">
+    </form>
+</body>
+</html>
