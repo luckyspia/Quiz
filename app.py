@@ -427,18 +427,18 @@ def quiz():
     shuffle_questions(multiple_choice)  # 객관식 퀴즈 문제와 보기 순서 랜덤화
     random.shuffle(open_ended)  # 주관식 퀴즈 문제 순서 랜덤화
     
-    return render_template('quiz.html', multiple_choice=multiple_choice[:43], open_ended=open_ended[:44])
+    return render_template('quiz.html', multiple_choice=multiple_choice[:43], open_ended=open_ended[:43])
 
 @app.route('/result', methods=['POST'])
 def result():
     user_answers = request.form  # 사용자의 답안을 가져옴
 
     mc_wrong_answers = get_wrong_answers(multiple_choice_questions[:43], user_answers)
-    open_wrong_answers = get_wrong_answers(open_questions[:44], user_answers)
+    open_wrong_answers = get_wrong_answers(open_questions[:43], user_answers)
 
     score_mc = len(multiple_choice_questions[:43]) - len(mc_wrong_answers)
-    score_open = len(open_questions[:44]) - len(open_wrong_answers)
-    total_questions = len(multiple_choice_questions[:43]) + len(open_questions[:44])
+    score_open = len(open_questions[:43]) - len(open_wrong_answers)
+    total_questions = len(multiple_choice_questions[:43]) + len(open_questions[:43])
     total_correct = score_mc + score_open
     correct_ratio = total_correct / total_questions * 100 if total_questions > 0 else 0
 
